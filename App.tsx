@@ -3,7 +3,7 @@ import { Dashboard } from './components/owner/Dashboard';
 import { PublicMenu } from './components/diner/PublicMenu';
 import { LoginPage } from './components/auth/LoginPage';
 import { LandingPage } from './components/landing/LandingPage';
-import { INITIAL_MENU, DEMO_MENU } from './constants';
+import { INITIAL_MENU, DEMO_MENU, EMPTY_MENU } from './constants';
 import { Menu } from './types';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 
@@ -15,7 +15,7 @@ import { saveMenu, getMenu } from './services/menuService';
 function AppContent() {
   const { user, logout } = useAuth();
   const [viewMode, setViewMode] = useState<ViewMode>('landing');
-  const [menuData, setMenuData] = useState<Menu>(INITIAL_MENU);
+  const [menuData, setMenuData] = useState<Menu | null>(null);
   const [isLoadingMenu, setIsLoadingMenu] = useState(false);
 
   useEffect(() => {
@@ -28,9 +28,10 @@ function AppContent() {
           if (savedMenu) {
             setMenuData(savedMenu);
           } else {
-            // If new user, save the initial menu
-            await saveMenu(user.uid, INITIAL_MENU);
-            setMenuData(INITIAL_MENU);
+            // If new user, save the empty menu
+            const newMenu = { ...EMPTY_MENU, id: user.uid }; // Use userId as menuId for simplicity
+            await saveMenu(user.uid, newMenu);
+            setMenuData(newMenu);
           }
         } catch (error) {
           console.error("Failed to load menu", error);
@@ -41,7 +42,7 @@ function AppContent() {
       loadUserMenu();
     } else if (viewMode === 'owner') {
       setViewMode('landing');
-      setMenuData(INITIAL_MENU);
+      setMenuData(null);
     }
   }, [user]);
 

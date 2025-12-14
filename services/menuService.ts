@@ -1,7 +1,7 @@
 import { db } from './firebase';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { Menu } from '../types';
-import { INITIAL_MENU } from '../constants';
+
 
 export const saveMenu = async (userId: string, menu: Menu) => {
     try {

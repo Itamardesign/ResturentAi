@@ -84,12 +84,12 @@ export const DEMO_MENU: Menu = {
     phone: '077-999-888'
   },
   style: {
-      primaryColor: '#EC4899', // Pink-500
-      backgroundColor: '#0F172A', // Slate-900
-      surfaceColor: '#1E293B', // Slate-800
-      textColor: '#F8FAFC', // Slate-50
-      fontFamily: 'sans',
-      layout: 'grid'
+    primaryColor: '#EC4899', // Pink-500
+    backgroundColor: '#0F172A', // Slate-900
+    surfaceColor: '#1E293B', // Slate-800
+    textColor: '#F8FAFC', // Slate-50
+    fontFamily: 'sans',
+    layout: 'grid'
   },
   categories: [
     {
@@ -105,20 +105,20 @@ export const DEMO_MENU: Menu = {
           isAvailable: true, tags: ['New'], dietaryInfo: { isVegan: true, isVegetarian: true, isGlutenFree: true, spiciness: 'mild' }
         },
         {
-           id: 'item-2', categoryId: 'cat-1',
-           name: { en: 'Larb Moo Tod', th: 'ลาบหมูทอด' },
-           description: { en: 'Deep-fried spicy minced pork balls mixed with mint, lime, and roasted rice powder.', th: 'ลาบหมูปั้นก้อนทอดกรอบ หอมข้าวคั่วและสมุนไพร รสจัดจ้าน' },
-           price: 160,
-           image: 'https://images.unsplash.com/photo-1544510808-91bcbee1df55?auto=format&fit=crop&w=800&q=80', 
-           isAvailable: true, tags: ['Best Seller'], dietaryInfo: { isVegan: false, isVegetarian: false, isGlutenFree: false, spiciness: 'medium' }
+          id: 'item-2', categoryId: 'cat-1',
+          name: { en: 'Larb Moo Tod', th: 'ลาบหมูทอด' },
+          description: { en: 'Deep-fried spicy minced pork balls mixed with mint, lime, and roasted rice powder.', th: 'ลาบหมูปั้นก้อนทอดกรอบ หอมข้าวคั่วและสมุนไพร รสจัดจ้าน' },
+          price: 160,
+          image: 'https://images.unsplash.com/photo-1544510808-91bcbee1df55?auto=format&fit=crop&w=800&q=80',
+          isAvailable: true, tags: ['Best Seller'], dietaryInfo: { isVegan: false, isVegetarian: false, isGlutenFree: false, spiciness: 'medium' }
         },
         {
-           id: 'item-3', categoryId: 'cat-1',
-           name: { en: 'Crispy Calamari', th: 'ปลาหมึกชุบแป้งทอด' },
-           description: { en: 'Golden fried fresh squid rings served with Sriracha mayo.', th: 'ปลาหมึกสดชุบแป้งทอดกรอบ เสิร์ฟพร้อมซอสศรีราชามายองเนส' },
-           price: 180,
-           image: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80',
-           isAvailable: true, tags: [], dietaryInfo: { isVegan: false, isVegetarian: false, isGlutenFree: false, spiciness: 'none' }
+          id: 'item-3', categoryId: 'cat-1',
+          name: { en: 'Crispy Calamari', th: 'ปลาหมึกชุบแป้งทอด' },
+          description: { en: 'Golden fried fresh squid rings served with Sriracha mayo.', th: 'ปลาหมึกสดชุบแป้งทอดกรอบ เสิร์ฟพร้อมซอสศรีราชามายองเนส' },
+          price: 180,
+          image: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80',
+          isAvailable: true, tags: [], dietaryInfo: { isVegan: false, isVegetarian: false, isGlutenFree: false, spiciness: 'none' }
         }
       ]
     },
@@ -263,9 +263,9 @@ export const INITIAL_MENU: Menu = {
           id: 'item-1',
           categoryId: 'cat-1',
           name: { en: 'Pad Thai with Jumbo Prawns', th: 'ผัดไทยกุ้งแม่น้ำ' },
-          description: { 
-            en: 'Award-winning stir-fried rice noodles with tamarind sauce, wrapped in egg net, served with grilled jumbo river prawns.', 
-            th: 'ก๋วยเตี๋ยวผัดเส้นจันท์ ปรุงรสด้วยน้ำมะขามเปียกสูตรโบราณ ห่อไข่ เสิร์ฟพร้อมกุ้งแม่น้ำย่างถ่าน' 
+          description: {
+            en: 'Award-winning stir-fried rice noodles with tamarind sauce, wrapped in egg net, served with grilled jumbo river prawns.',
+            th: 'ก๋วยเตี๋ยวผัดเส้นจันท์ ปรุงรสด้วยน้ำมะขามเปียกสูตรโบราณ ห่อไข่ เสิร์ฟพร้อมกุ้งแม่น้ำย่างถ่าน'
           },
           price: 280,
           image: 'https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=800&q=80',
@@ -277,9 +277,9 @@ export const INITIAL_MENU: Menu = {
           id: 'item-2',
           categoryId: 'cat-1',
           name: { en: 'Tom Yum Goong Creamy Soup', th: 'ต้มยำกุ้งน้ำข้น' },
-          description: { 
-            en: 'Authentic spicy prawn soup with lemongrass, galangal, kaffir lime leaves, and chili paste milk.', 
-            th: 'ต้มยำน้ำข้นรสจัดจ้าน หอมเครื่องสมุนไพร ข่า ตะไคร้ ใบมะกรูด พร้อมกุ้งสดและเห็ดฟาง' 
+          description: {
+            en: 'Authentic spicy prawn soup with lemongrass, galangal, kaffir lime leaves, and chili paste milk.',
+            th: 'ต้มยำน้ำข้นรสจัดจ้าน หอมเครื่องสมุนไพร ข่า ตะไคร้ ใบมะกรูด พร้อมกุ้งสดและเห็ดฟาง'
           },
           price: 220,
           image: 'https://images.unsplash.com/photo-1548943487-a2e4e43b485c?auto=format&fit=crop&w=800&q=80',
@@ -291,9 +291,9 @@ export const INITIAL_MENU: Menu = {
           id: 'item-3',
           categoryId: 'cat-1',
           name: { en: 'Massaman Curry Beef', th: 'มัสมั่นเนื้อ' },
-          description: { 
-            en: 'Slow-cooked beef chunks in rich massaman curry with potatoes, onions, and roasted peanuts.', 
-            th: 'แกงมัสมั่นเนื้อน่องลาย เคี่ยวจนเปื่อยนุ่ม หอมเครื่องแกงรสกลมกล่อม' 
+          description: {
+            en: 'Slow-cooked beef chunks in rich massaman curry with potatoes, onions, and roasted peanuts.',
+            th: 'แกงมัสมั่นเนื้อน่องลาย เคี่ยวจนเปื่อยนุ่ม หอมเครื่องแกงรสกลมกล่อม'
           },
           price: 320,
           image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80',
@@ -311,9 +311,9 @@ export const INITIAL_MENU: Menu = {
           id: 'item-4',
           categoryId: 'cat-2',
           name: { en: 'Crispy Spring Rolls', th: 'ปอเปี๊ยะทอด' },
-          description: { 
-            en: 'Hand-rolled pastry filled with glass noodles, carrots, and cabbage, served with plum sauce.', 
-            th: 'แป้งปอเปี๊ยะทอดกรอบ ไส้วุ้นเส้นและผักรวม เสิร์ฟพร้อมน้ำจิ้มบ๊วย' 
+          description: {
+            en: 'Hand-rolled pastry filled with glass noodles, carrots, and cabbage, served with plum sauce.',
+            th: 'แป้งปอเปี๊ยะทอดกรอบ ไส้วุ้นเส้นและผักรวม เสิร์ฟพร้อมน้ำจิ้มบ๊วย'
           },
           price: 120,
           image: 'https://images.unsplash.com/photo-1544510808-91bcbee1df55?auto=format&fit=crop&w=800&q=80',
@@ -325,9 +325,9 @@ export const INITIAL_MENU: Menu = {
           id: 'item-5',
           categoryId: 'cat-2',
           name: { en: 'Chicken Satay', th: 'ไก่สะเต๊ะ' },
-          description: { 
-            en: 'Grilled marinated chicken skewers served with peanut sauce and cucumber relish.', 
-            th: 'ไก่หมักเครื่องเทศย่างถ่าน หอมนุ่ม เสิร์ฟพร้อมน้ำจิ้มถั่วและอาจาด' 
+          description: {
+            en: 'Grilled marinated chicken skewers served with peanut sauce and cucumber relish.',
+            th: 'ไก่หมักเครื่องเทศย่างถ่าน หอมนุ่ม เสิร์ฟพร้อมน้ำจิ้มถั่วและอาจาด'
           },
           price: 150,
           image: 'https://images.unsplash.com/photo-1603082575960-49a88eb5046f?auto=format&fit=crop&w=800&q=80',
@@ -338,6 +338,20 @@ export const INITIAL_MENU: Menu = {
       ]
     }
   ]
+};
+
+export const EMPTY_MENU: Menu = {
+  id: '',
+  name: 'My New Menu',
+  restaurantInfo: {
+    headerImage: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80',
+    openingHours: '',
+    address: '',
+    googleMapsLink: '',
+    phone: ''
+  },
+  style: MENU_TEMPLATES[0].style,
+  categories: []
 };
 
 export const MOCK_DAILY_VIEWS: DailyView[] = [
