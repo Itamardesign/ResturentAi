@@ -92,6 +92,14 @@ function AppContent() {
 
   // Default to Owner Dashboard if authenticated
   if (user && viewMode === 'owner') {
+    if (isLoadingMenu || !menuData) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"></div>
+        </div>
+      );
+    }
+
     return (
       <Dashboard
         menu={menuData}
