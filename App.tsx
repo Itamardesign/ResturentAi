@@ -10,21 +10,50 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 
 type ViewMode = 'landing' | 'login' | 'owner' | 'diner' | 'demo';
 
+import { saveMenu, getMenu } from './services/menuService';
+
 function AppContent() {
   const { user, logout } = useAuth();
   const [viewMode, setViewMode] = useState<ViewMode>('landing');
   const [menuData, setMenuData] = useState<Menu>(INITIAL_MENU);
+  const [isLoadingMenu, setIsLoadingMenu] = useState(false);
 
   useEffect(() => {
     if (user) {
       setViewMode('owner');
+      const loadUserMenu = async () => {
+        setIsLoadingMenu(true);
+        try {
+          const savedMenu = await getMenu(user.uid);
+          if (savedMenu) {
+            setMenuData(savedMenu);
+          } else {
+            // If new user, save the initial menu
+            await saveMenu(user.uid, INITIAL_MENU);
+            setMenuData(INITIAL_MENU);
+          }
+        } catch (error) {
+          console.error("Failed to load menu", error);
+        } finally {
+          setIsLoadingMenu(false);
+        }
+      };
+      loadUserMenu();
     } else if (viewMode === 'owner') {
       setViewMode('landing');
+      setMenuData(INITIAL_MENU);
     }
   }, [user]);
 
-  const handleUpdateMenu = (updatedMenu: Menu) => {
+  const handleUpdateMenu = async (updatedMenu: Menu) => {
     setMenuData(updatedMenu);
+    if (user) {
+      try {
+        await saveMenu(user.uid, updatedMenu);
+      } catch (error) {
+        console.error("Failed to save menu", error);
+      }
+    }
   };
 
   // Routing Logic
