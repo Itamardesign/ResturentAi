@@ -44,7 +44,7 @@ export interface MenuStyle {
   backgroundColor: string;
   surfaceColor: string;
   textColor: string;
-  fontFamily: 'sans' | 'serif' | 'mono';
+  fontFamily: 'sans' | 'serif' | 'mono' | 'luxury' | 'cyber' | 'modern' | 'clean';
   layout: 'list' | 'grid';
 }
 

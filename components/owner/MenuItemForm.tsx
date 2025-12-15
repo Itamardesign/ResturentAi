@@ -13,6 +13,9 @@ interface MenuItemFormProps {
 }
 
 export const MenuItemForm: React.FC<MenuItemFormProps> = ({ initialData, categories, onSave, onCancel }) => {
+    // Generate a stable ID for new items to prevent duplicates during auto-save
+    const [stableId] = useState(initialData?.id || Date.now().toString());
+
     const [formData, setFormData] = useState<Partial<MenuItem>>(initialData || {
         name: { en: '', th: '' },
         description: { en: '', th: '' },
@@ -107,7 +110,7 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({ initialData, categor
         setSaveStatus('saving');
 
         const finalData: MenuItem = {
-            id: initialData?.id || Date.now().toString(),
+            id: stableId,
             ...dataToSave as MenuItem
         };
 

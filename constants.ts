@@ -70,6 +70,48 @@ export const MENU_TEMPLATES: MenuTemplate[] = [
       layout: 'list'
     },
     thumbnail: 'bg-stone-300'
+  },
+  {
+    id: 'template-zen',
+    name: 'Zen Minimalist',
+    description: 'Clean, airy, and sophisticated. Perfect for modern cafes and spas.',
+    style: {
+      primaryColor: '#57534E', // Stone-600
+      backgroundColor: '#F5F5F4', // Stone-100
+      surfaceColor: '#FFFFFF',
+      textColor: '#292524', // Stone-800
+      fontFamily: 'clean',
+      layout: 'list'
+    },
+    thumbnail: 'bg-stone-200'
+  },
+  {
+    id: 'template-cyber',
+    name: 'Cyber Future',
+    description: 'High-tech, dark mode aesthetic with neon gradients and mono-style fonts.',
+    style: {
+      primaryColor: '#00F0FF', // Cyan Neon
+      backgroundColor: '#050505', // Black
+      surfaceColor: '#101010', // Dark Gray
+      textColor: '#E0E0E0',
+      fontFamily: 'cyber',
+      layout: 'grid'
+    },
+    thumbnail: 'bg-cyan-500'
+  },
+  {
+    id: 'template-gold',
+    name: 'Elegant Gold',
+    description: 'Ultra-premium dark theme with gold metallic accents.',
+    style: {
+      primaryColor: '#D4AF37', // Gold
+      backgroundColor: '#0A0A0A', // Rich Black
+      surfaceColor: '#141414',
+      textColor: '#F5F5F5',
+      fontFamily: 'luxury',
+      layout: 'list'
+    },
+    thumbnail: 'bg-yellow-600'
   }
 ];
 

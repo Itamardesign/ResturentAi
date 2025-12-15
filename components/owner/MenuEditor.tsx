@@ -53,8 +53,13 @@ export const MenuEditor: React.FC<MenuEditorProps> = ({ menu, onUpdateMenu }) =>
       });
     }
     onUpdateMenu({ ...menu, categories: updatedCategories });
-    setEditingItem(null);
-    setIsAddingItem(false);
+
+    // If we were adding a new item, switch to editing mode for this item
+    // This ensures the form stays open and bound to the correct item
+    if (isAddingItem) {
+      setEditingItem(item);
+      setIsAddingItem(false);
+    }
   };
 
   // Category Handlers
