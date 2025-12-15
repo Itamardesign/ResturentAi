@@ -91,7 +91,7 @@ async function devAnalyzeImage({ base64Image }: any) {
     contents: {
       parts: [
         { inlineData: { mimeType: 'image/jpeg', data: base64Image } },
-        { text: "Analyze this food image. Provide JSON output with 'brightness', 'contrast', and 'saturation' values (numbers between 0.8 and 1.5) to make it look more appetizing (e.g., brighter, more vibrant). Output ONLY valid JSON." }
+        { text: "Analyze this food image. Provide JSON output with 'brightness', 'contrast', and 'saturation' values (numbers between 0.8 and 1.5) to make it look like a gorgeous studio shot (style: nano banana 1). Output ONLY valid JSON." }
       ]
     },
     config: {

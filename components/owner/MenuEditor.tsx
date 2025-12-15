@@ -210,14 +210,7 @@ export const MenuEditor: React.FC<MenuEditorProps> = ({ menu, onUpdateMenu }) =>
           >
             Category
           </Button>
-          <Button
-            variant="secondary"
-            onClick={() => setIsScanning(true)}
-            icon={<Camera className="w-4 h-4 text-orange-600" />}
-            className="bg-orange-50 text-orange-700 hover:bg-orange-100 border-transparent"
-          >
-            Scan Menu
-          </Button>
+
           <Button
             variant="secondary"
             onClick={() => setIsImporting(true)}
