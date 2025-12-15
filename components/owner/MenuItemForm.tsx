@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MenuItem, MenuCategory, ImageEnhancement, SpicinessLevel } from '../../types';
 import { Button } from '../Button';
 import { Wand2, Image as ImageIcon, Sparkles, Loader2, X, UploadCloud, ChevronLeft, ArrowLeft, Flame, Leaf, WheatOff, ChefHat, ThumbsUp, TrendingUp, Clock } from 'lucide-react';
