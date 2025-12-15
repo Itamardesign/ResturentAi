@@ -255,7 +255,7 @@ async function devTransformImage({ base64Image, userPrompt }: any) {
     }
 
     // @ts-ignore
-    const generatedImage = generatedImages[0].image.base64;
+    const generatedImage = generatedImages[0].image.imageBytes;
     return { image: generatedImage, prompt: finalPrompt, originalDescription: description };
   } catch (e) {
     console.error("Local Image Gen Failed", e);

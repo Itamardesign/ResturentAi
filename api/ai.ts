@@ -211,9 +211,9 @@ async function handleTransformImage({ base64Image, userPrompt }) {
     }
 
     // Extract the image from response (Base64 is in 'image.base64' or similar structure, checking logs)
-    // Based on logs: "generatedImages": [ { "image": { "base64": "..." } } ]
+    // Based on logs: "generatedImages": [ { "image": { "imageBytes": "..." } } ]
     // @ts-ignore
-    const generatedImage = generatedImages[0].image.base64;
+    const generatedImage = generatedImages[0].image.imageBytes;
 
     return {
         image: generatedImage,
