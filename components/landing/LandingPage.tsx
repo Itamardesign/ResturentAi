@@ -141,7 +141,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin,
 
   return (
     <div className={`min-h-screen bg-white font-sans overflow-x-hidden selection:bg-orange-100 ${pageLang === 'th' ? 'font-thai' : ''}`}>
-      
+
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-5'}`}>
         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
@@ -152,20 +152,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin,
           <div className="flex items-center gap-4">
             {/* Language Switcher */}
             <div className="flex bg-gray-100 rounded-lg p-1">
-              <button 
+              <button
                 onClick={() => setPageLang('en')}
                 className={`px-3 py-1 rounded-md text-xs font-bold transition-all ${pageLang === 'en' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-900'}`}
               >
                 EN
               </button>
-              <button 
+              <button
                 onClick={() => setPageLang('th')}
                 className={`px-3 py-1 rounded-md text-xs font-bold transition-all font-thai ${pageLang === 'th' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-900'}`}
               >
                 ไทย
               </button>
             </div>
-            
+
             <button onClick={onLogin} className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors hidden sm:block">
               {t.hero.ctaLogin}
             </button>
@@ -183,7 +183,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin,
 
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-            
+
             {/* Copy */}
             <div className="flex-1 text-center lg:text-left space-y-8">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-50 text-orange-700 rounded-full text-xs font-bold uppercase tracking-wider border border-orange-100 mb-2">
@@ -197,10 +197,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin,
               <p className="text-lg text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0">
                 {t.hero.subtitle}
               </p>
-              
+
               <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
                 <Button onClick={onViewDemo} size="lg" className="w-full sm:w-auto text-lg h-14 px-8 shadow-xl shadow-orange-500/20 hover:scale-105 transition-transform flex items-center justify-center gap-2">
-                   {t.hero.ctaDemo} <ArrowRight className="w-5 h-5" />
+                  {t.hero.ctaDemo} <ArrowRight className="w-5 h-5" />
                 </Button>
               </div>
             </div>
@@ -237,11 +237,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin,
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Mock Menu List */}
                   <div className="p-4 space-y-4">
                     <div className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">Signature Dishes</div>
-                    
+
                     {INITIAL_MENU.categories[0].items.slice(0, 3).map((item, idx) => (
                       <div key={idx} className="flex gap-3 animate-in slide-in-from-bottom-4 fade-in duration-700" style={{ animationDelay: `${idx * 150}ms` }}>
                         <div className="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
@@ -249,17 +249,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin,
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex justify-between items-start">
-                             <h4 className="font-bold text-gray-900 truncate">
-                               {activeDemoLang === 'en' ? item.name.en : item.name.th}
-                             </h4>
-                             <span className="text-orange-600 font-bold text-sm">฿{item.price}</span>
+                            <h4 className="font-bold text-gray-900 truncate">
+                              {activeDemoLang === 'en' ? item.name.en : item.name.th}
+                            </h4>
+                            <span className="text-orange-600 font-bold text-sm">฿{item.price}</span>
                           </div>
                           <p className="text-xs text-gray-500 line-clamp-2 mt-1 transition-opacity duration-300">
-                             {activeDemoLang === 'en' ? item.description.en : item.description.th}
+                            {activeDemoLang === 'en' ? item.description.en : item.description.th}
                           </p>
                           {idx === 0 && (
                             <div className="mt-2 flex gap-1">
-                               <span className="px-1.5 py-0.5 bg-orange-50 text-orange-700 text-[10px] font-bold rounded">Best Seller</span>
+                              <span className="px-1.5 py-0.5 bg-orange-50 text-orange-700 text-[10px] font-bold rounded">Best Seller</span>
                             </div>
                           )}
                         </div>
@@ -281,24 +281,24 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin,
       {/* Social Proof / Stats */}
       <section className="py-12 border-y border-gray-100 bg-gray-50/50">
         <div className="max-w-6xl mx-auto px-6">
-           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <p className="text-3xl font-bold text-gray-900">500+</p>
-                <p className="text-sm text-gray-500 mt-1">{t.stats.restaurants}</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-gray-900">20%</p>
-                <p className="text-sm text-gray-500 mt-1">{t.stats.sales}</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-gray-900">10k+</p>
-                <p className="text-sm text-gray-500 mt-1">{t.stats.dishes}</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-gray-900">4.9/5</p>
-                <p className="text-sm text-gray-500 mt-1">{t.stats.rating}</p>
-              </div>
-           </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+              <p className="text-3xl font-bold text-gray-900">500+</p>
+              <p className="text-sm text-gray-500 mt-1">{t.stats.restaurants}</p>
+            </div>
+            <div>
+              <p className="text-3xl font-bold text-gray-900">20%</p>
+              <p className="text-sm text-gray-500 mt-1">{t.stats.sales}</p>
+            </div>
+            <div>
+              <p className="text-3xl font-bold text-gray-900">10k+</p>
+              <p className="text-sm text-gray-500 mt-1">{t.stats.dishes}</p>
+            </div>
+            <div>
+              <p className="text-3xl font-bold text-gray-900">4.9/5</p>
+              <p className="text-sm text-gray-500 mt-1">{t.stats.rating}</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -359,8 +359,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin,
       {/* Before / After Section */}
       <section className="py-24 bg-gray-900 text-white overflow-hidden relative">
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20">
-           <div className="absolute top-0 left-0 w-64 h-64 bg-orange-500 rounded-full blur-[100px]"></div>
-           <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-500 rounded-full blur-[100px]"></div>
+          <div className="absolute top-0 left-0 w-64 h-64 bg-orange-500 rounded-full blur-[100px]"></div>
+          <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-500 rounded-full blur-[100px]"></div>
         </div>
 
         <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -383,7 +383,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin,
                   </div>
                   <span>{t.comparison.check2}</span>
                 </li>
-                 <li className="flex items-center gap-3">
+                <li className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">
                     <CheckCircle2 className="w-4 h-4" />
                   </div>
@@ -391,35 +391,35 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin,
                 </li>
               </ul>
             </div>
-            
+
             <div className="flex-1 relative">
-                {/* Visual comparison could go here, for now a stylized abstract representation */}
-                <div className="relative w-full aspect-square max-w-sm mx-auto">
-                    {/* The "Old" Card */}
-                    <div className="absolute top-0 left-0 w-64 h-80 bg-gray-800 rounded-xl p-6 transform -rotate-6 opacity-50 scale-90 origin-bottom-left">
-                        <div className="w-full h-full border-2 border-dashed border-gray-600 rounded flex items-center justify-center text-gray-500 font-mono text-sm uppercase">
-                            Printed Menu
-                        </div>
-                    </div>
-                    {/* The "New" Card */}
-                    <div className="absolute top-4 right-0 w-72 h-[400px] bg-white rounded-3xl p-2 shadow-2xl transform rotate-3 transition-transform hover:rotate-0 duration-500">
-                        <div className="w-full h-full bg-gray-50 rounded-2xl overflow-hidden relative">
-                             <img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=800&q=80" className="w-full h-48 object-cover" alt="" />
-                             <div className="p-4">
-                                <h4 className="font-bold text-gray-900 text-lg">Pad Thai</h4>
-                                <p className="text-xs text-gray-500 mt-1">Stir-fried rice noodles with eggs, peanuts, and shrimp.</p>
-                                <div className="mt-4 flex justify-between items-center">
-                                    <span className="font-bold text-orange-600 text-xl">฿120</span>
-                                    <button className="bg-black text-white px-3 py-1 rounded-lg text-xs font-bold">Add</button>
-                                </div>
-                             </div>
-                             {/* Floating tag */}
-                             <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-2 py-1 rounded-md text-xs font-bold text-green-700 flex items-center gap-1 shadow-sm">
-                                <TrendingUp className="w-3 h-3" /> Popular
-                             </div>
-                        </div>
-                    </div>
+              {/* Visual comparison could go here, for now a stylized abstract representation */}
+              <div className="relative w-full aspect-square max-w-sm mx-auto">
+                {/* The "Old" Card */}
+                <div className="absolute top-0 left-0 w-64 h-80 bg-gray-800 rounded-xl p-6 transform -rotate-6 opacity-50 scale-90 origin-bottom-left">
+                  <div className="w-full h-full border-2 border-dashed border-gray-600 rounded flex items-center justify-center text-gray-500 font-mono text-sm uppercase">
+                    Printed Menu
+                  </div>
                 </div>
+                {/* The "New" Card */}
+                <div className="absolute top-4 right-0 w-72 h-[400px] bg-white rounded-3xl p-2 shadow-2xl transform rotate-3 transition-transform hover:rotate-0 duration-500">
+                  <div className="w-full h-full bg-gray-50 rounded-2xl overflow-hidden relative">
+                    <img src="/images/landing_pad_thai.png" className="w-full h-48 object-cover" alt="" />
+                    <div className="p-4">
+                      <h4 className="font-bold text-gray-900 text-lg">Pad Thai</h4>
+                      <p className="text-xs text-gray-500 mt-1">Stir-fried rice noodles with eggs, peanuts, and shrimp.</p>
+                      <div className="mt-4 flex justify-between items-center">
+                        <span className="font-bold text-orange-600 text-xl">฿120</span>
+                        <button className="bg-black text-white px-3 py-1 rounded-lg text-xs font-bold">Add</button>
+                      </div>
+                    </div>
+                    {/* Floating tag */}
+                    <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-2 py-1 rounded-md text-xs font-bold text-green-700 flex items-center gap-1 shadow-sm">
+                      <TrendingUp className="w-3 h-3" /> Popular
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -432,32 +432,32 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin,
           {t.cta.subtitle}
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-           <Button onClick={onViewDemo} size="lg" className="h-14 px-10 text-lg shadow-xl shadow-orange-500/20">
-             {t.cta.button}
-           </Button>
-           <button onClick={onLogin} className="px-10 h-14 rounded-xl border-2 border-gray-200 font-bold text-gray-600 hover:border-gray-900 hover:text-gray-900 transition-all">
-             {t.cta.buttonLogin}
-           </button>
+          <Button onClick={onViewDemo} size="lg" className="h-14 px-10 text-lg shadow-xl shadow-orange-500/20">
+            {t.cta.button}
+          </Button>
+          <button onClick={onLogin} className="px-10 h-14 rounded-xl border-2 border-gray-200 font-bold text-gray-600 hover:border-gray-900 hover:text-gray-900 transition-all">
+            {t.cta.buttonLogin}
+          </button>
         </div>
         <p className="mt-6 text-sm text-gray-400">{t.cta.note}</p>
       </section>
 
       {/* Footer */}
       <footer className="border-t border-gray-100 py-12 bg-white">
-         <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-2 opacity-80">
-                <div className="w-6 h-6 bg-gray-900 rounded-md flex items-center justify-center text-white font-bold text-xs">B</div>
-                <span className="font-bold text-gray-900">Bistrot AI</span>
-            </div>
-            <div className="text-sm text-gray-500">
-                © 2025 Bistrot AI. Crafted for restaurants with ❤️
-            </div>
-            <div className="flex gap-6 text-sm text-gray-500">
-                <a href="#" className="hover:text-gray-900">Privacy</a>
-                <a href="#" className="hover:text-gray-900">Terms</a>
-                <a href="#" className="hover:text-gray-900">Contact</a>
-            </div>
-         </div>
+        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex items-center gap-2 opacity-80">
+            <div className="w-6 h-6 bg-gray-900 rounded-md flex items-center justify-center text-white font-bold text-xs">B</div>
+            <span className="font-bold text-gray-900">Bistrot AI</span>
+          </div>
+          <div className="text-sm text-gray-500">
+            © 2025 Bistrot AI. Crafted for restaurants with ❤️
+          </div>
+          <div className="flex gap-6 text-sm text-gray-500">
+            <a href="#" className="hover:text-gray-900">Privacy</a>
+            <a href="#" className="hover:text-gray-900">Terms</a>
+            <a href="#" className="hover:text-gray-900">Contact</a>
+          </div>
+        </div>
       </footer>
     </div>
   );
