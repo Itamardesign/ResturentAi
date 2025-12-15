@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MenuItem, MenuCategory, ImageEnhancement, SpicinessLevel } from '../../types';
 import { Button } from '../Button';
-import { Wand2, Image as ImageIcon, Sparkles, Loader2, X, UploadCloud, ChevronLeft, ArrowLeft, Flame, Leaf, WheatOff, ChefHat, ThumbsUp, TrendingUp, Clock } from 'lucide-react';
+import { Wand2, Image as ImageIcon, Sparkles, Loader2, X, UploadCloud, ChevronLeft, ArrowLeft, Flame, Leaf, WheatOff, ChefHat, ThumbsUp, TrendingUp, Clock, Check } from 'lucide-react';
 import { translateContent, generateDescription, fileToGenerativePart, transformImage } from '../../services/geminiService';
 import { ImageGenerationModal } from './ImageGenerationModal';
 
@@ -28,6 +28,7 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({ initialData, categor
 
     const [loadingAI, setLoadingAI] = useState<string | null>(null); // 'translate' | 'desc' | 'image'
     const [showImageGenModal, setShowImageGenModal] = useState(false);
+    const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved'>('idle');
 
     const handleInputChange = (field: string, value: any) => {
         setFormData(prev => ({ ...prev, [field]: value }));
@@ -101,11 +102,9 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({ initialData, categor
     const saveItem = (overrideData?: Partial<MenuItem>) => {
         const dataToSave = { ...formData, ...overrideData };
 
-        // Basic validation: Check required fields (Name EN, Price, Category)
-        // If these are missing, we can't save yet. 
-        // For auto-save context (image generation), the user might be editing a valid existing item, in which case this passes.
-        // If it's a completely new item and they haven't typed a name yet but generated an image, this will silently fail to auto-save, which is probably safer than erroring.
         if (!dataToSave.name?.en || !dataToSave.price || !dataToSave.categoryId) return;
+
+        setSaveStatus('saving');
 
         const finalData: MenuItem = {
             id: initialData?.id || Date.now().toString(),
@@ -115,8 +114,30 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({ initialData, categor
         if (!finalData.dietaryInfo) {
             finalData.dietaryInfo = { isVegan: false, isVegetarian: false, isGlutenFree: false, spiciness: 'none' };
         }
+
         onSave(finalData);
+
+        // Simulate save completion for UI feedback
+        setTimeout(() => {
+            setSaveStatus('saved');
+        }, 500);
     };
+
+    const isFirstRender = useRef(true);
+
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
+        setSaveStatus('saving'); // Show saving immediately when typing starts
+        const timer = setTimeout(() => {
+            saveItem();
+        }, 1000); // 1-second debounce
+
+        return () => clearTimeout(timer);
+    }, [formData]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -138,9 +159,25 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({ initialData, categor
                     </button>
                     <h2 className="text-xl font-bold text-gray-900">{initialData ? 'Edit Dish' : 'New Dish'}</h2>
                 </div>
-                <div className="flex gap-2">
-                    <Button type="button" variant="ghost" onClick={onCancel}>Cancel</Button>
-                    <Button type="submit">Save Changes</Button>
+                <div className="flex gap-2 items-center">
+                    <Button type="button" variant="ghost" onClick={onCancel}>Close</Button>
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-50 border border-gray-100 min-w-[100px] justify-center">
+                        {saveStatus === 'saving' && (
+                            <>
+                                <Loader2 className="w-4 h-4 text-orange-500 animate-spin" />
+                                <span className="text-sm font-medium text-gray-500">Saving...</span>
+                            </>
+                        )}
+                        {saveStatus === 'saved' && (
+                            <>
+                                <Check className="w-4 h-4 text-green-500" />
+                                <span className="text-sm font-medium text-gray-500">Saved</span>
+                            </>
+                        )}
+                        {saveStatus === 'idle' && (
+                            <span className="text-sm font-medium text-gray-400">All changes saved</span>
+                        )}
+                    </div>
                 </div>
             </div>
 
