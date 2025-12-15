@@ -99,19 +99,29 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({ initialData, categor
         setLoadingAI(null);
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!formData.name?.en || !formData.price || !formData.categoryId) return;
+    const saveItem = (overrideData?: Partial<MenuItem>) => {
+        const dataToSave = { ...formData, ...overrideData };
 
-        // Ensure dietaryInfo is set if missing
+        // Basic validation: Check required fields (Name EN, Price, Category)
+        // If these are missing, we can't save yet. 
+        // For auto-save context (image generation), the user might be editing a valid existing item, in which case this passes.
+        // If it's a completely new item and they haven't typed a name yet but generated an image, this will silently fail to auto-save, which is probably safer than erroring.
+        if (!dataToSave.name?.en || !dataToSave.price || !dataToSave.categoryId) return;
+
         const finalData: MenuItem = {
             id: initialData?.id || Date.now().toString(),
-            ...formData as MenuItem
+            ...dataToSave as MenuItem
         };
+
         if (!finalData.dietaryInfo) {
             finalData.dietaryInfo = { isVegan: false, isVegetarian: false, isGlutenFree: false, spiciness: 'none' };
         }
         onSave(finalData);
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        saveItem();
     };
 
 
@@ -466,6 +476,8 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({ initialData, categor
                         setFormData(prev => ({ ...prev, image: fullBase64 }));
                         setImagePreview(fullBase64);
                         setShowImageGenModal(false);
+                        // Auto-save immediately with the new image
+                        saveItem({ image: fullBase64 });
                     }}
                     onGenerate={async (prompt) => {
                         const base64Content = imagePreview.split(',')[1];
