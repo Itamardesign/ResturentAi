@@ -1,27 +1,30 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useParams, Link } from 'react-router-dom';
 import { Dashboard } from './components/owner/Dashboard';
 import { PublicMenu } from './components/diner/PublicMenu';
 import { LoginPage } from './components/auth/LoginPage';
 import { LandingPage } from './components/landing/LandingPage';
+import { NotFound } from './components/common/NotFound';
 import { INITIAL_MENU, DEMO_MENU, EMPTY_MENU } from './constants';
 import { Menu } from './types';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-
-
-type ViewMode = 'landing' | 'login' | 'owner' | 'diner' | 'demo';
-
 import { saveMenu, getMenu } from './services/menuService';
 
-function AppContent() {
-  const { user, logout } = useAuth();
-  const [viewMode, setViewMode] = useState<ViewMode>('landing');
+// Wrapper to handle authenticating and loading owner data
+const OwnerDashboardRoute = () => {
+  const { user, loading: authLoading, logout } = useAuth();
   const [menuData, setMenuData] = useState<Menu | null>(null);
-  const [isLoadingMenu, setIsLoadingMenu] = useState(false);
+  const [isLoadingMenu, setIsLoadingMenu] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!authLoading && !user) {
+      navigate('/login');
+      return;
+    }
+
     if (user) {
-      setViewMode('owner');
       const loadUserMenu = async () => {
         setIsLoadingMenu(true);
         setError(null);
@@ -30,8 +33,8 @@ function AppContent() {
           if (savedMenu) {
             setMenuData(savedMenu);
           } else {
-            // If new user, save the empty menu
-            const newMenu = { ...EMPTY_MENU, id: user.uid }; // Use userId as menuId for simplicity
+            // New user -> save empty menu
+            const newMenu = { ...EMPTY_MENU, id: user.uid };
             await saveMenu(user.uid, newMenu);
             setMenuData(newMenu);
           }
@@ -43,12 +46,8 @@ function AppContent() {
         }
       };
       loadUserMenu();
-    } else if (viewMode === 'owner') {
-      setViewMode('landing');
-      setMenuData(null);
-      setError(null);
     }
-  }, [user]);
+  }, [user, authLoading, navigate]);
 
   const handleUpdateMenu = async (updatedMenu: Menu) => {
     setMenuData(updatedMenu);
@@ -57,100 +56,120 @@ function AppContent() {
         await saveMenu(user.uid, updatedMenu);
       } catch (error) {
         console.error("Failed to save menu", error);
-        // Optionally set error here too, but might be annoying for auto-save
       }
     }
   };
 
-  // Routing Logic
-  if (viewMode === 'landing') {
+  if (authLoading || (user && isLoadingMenu)) {
     return (
-      <LandingPage
-        onGetStarted={() => setViewMode('login')}
-        onLogin={() => setViewMode('login')}
-        onViewDemo={() => setViewMode('demo')}
-      />
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"></div>
+      </div>
     );
   }
 
-  if (viewMode === 'demo') {
+  if (error) {
     return (
-      <PublicMenu
-        menu={DEMO_MENU}
-        onBack={() => setViewMode('landing')}
-      />
-    );
-  }
-
-  if (viewMode === 'login') {
-    return <LoginPage onLogin={() => { }} />; // Login logic handled inside LoginPage via context
-  }
-
-  if (viewMode === 'diner') {
-    return (
-      <PublicMenu
-        menu={menuData || EMPTY_MENU} // Fallback to empty if null (shouldn't happen in diner mode usually)
-        onBack={() => setViewMode('owner')}
-      />
-    );
-  }
-
-  // Default to Owner Dashboard if authenticated
-  if (user && viewMode === 'owner') {
-    if (error) {
-      return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-4 text-center">
-          <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
-            <div className="text-red-500 mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-4 text-center">
+        <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
+          <h2 className="text-xl font-bold text-gray-900 mb-2">Something went wrong</h2>
+          <p className="text-gray-600 mb-6">{error}</p>
+          {error.includes("permissions") && (
+            <div className="bg-orange-50 text-orange-800 p-4 rounded-lg text-sm mb-6 text-left">
+              <strong>Firebase Permissions Error:</strong><br />
+              Please checking your Firestore Security Rules.
             </div>
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Something went wrong</h2>
-            <p className="text-gray-600 mb-6">{error}</p>
-            {error.includes("permissions") && (
-              <div className="bg-orange-50 text-orange-800 p-4 rounded-lg text-sm mb-6 text-left">
-                <strong>Firebase Permissions Error:</strong><br />
-                You need to update your Firestore Security Rules in the Firebase Console to allow reading/writing data.
-              </div>
-            )}
-            <button
-              onClick={() => window.location.reload()}
-              className="w-full bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 transition-colors"
-            >
-              Retry
-            </button>
-          </div>
+          )}
+          <button onClick={() => window.location.reload()} className="bg-orange-600 text-white py-2 px-4 rounded-lg">Retry</button>
         </div>
-      );
-    }
-
-    if (isLoadingMenu || !menuData) {
-      return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"></div>
-        </div>
-      );
-    }
-
-    return (
-      <Dashboard
-        menu={menuData}
-        onUpdateMenu={handleUpdateMenu}
-        onSwitchToDiner={() => setViewMode('diner')}
-        onLogout={logout}
-      />
+      </div>
     );
   }
 
-  // Fallback
-  return <LoginPage onLogin={() => { }} />;
-}
+  if (!user || !menuData) return null; // Should redirect
+
+  return (
+    <Dashboard
+      menu={menuData}
+      onUpdateMenu={handleUpdateMenu}
+      onSwitchToDiner={() => window.open(`/menu/${user.uid}`, '_blank')}
+      onLogout={logout}
+    />
+  );
+};
+
+// Route for displaying a public menu by ID
+const PublicMenuRoute = () => {
+  const { menuId } = useParams<{ menuId: string }>();
+  const [menu, setMenu] = useState<Menu | null>(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const loadMenu = async () => {
+      if (!menuId) return;
+      try {
+        const data = await getMenu(menuId);
+        if (data) {
+          setMenu(data);
+        } else {
+          // Handle "Menu Not Found" specifically if we want, or fall through to 404
+          // For now, let's just stay loading false and show null -> 404
+        }
+      } catch (error) {
+        console.error("Error loading menu:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadMenu();
+  }, [menuId]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"></div>
+      </div>
+    );
+  }
+
+  if (!menu) {
+    return <NotFound />;
+  }
+
+  return <PublicMenu menu={menu} onBack={() => { }} />; // Back button might not be needed for public view, or could go to landing
+};
 
 export default function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <Router>
+        <Routes>
+          <Route path="/" element={<LandingPageWrapper />} />
+          <Route path="/login" element={<LoginPageWrapper />} />
+          <Route path="/dashboard" element={<OwnerDashboardRoute />} />
+          <Route path="/demo" element={<PublicMenu menu={DEMO_MENU} onBack={() => window.location.href = '/'} />} />
+          <Route path="/menu/:menuId" element={<PublicMenuRoute />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
     </AuthProvider>
   );
 }
+
+// Small wrappers to inject navigation props if needed, or just keep cleaner
+const LandingPageWrapper = () => {
+  const navigate = useNavigate();
+  return (
+    <LandingPage
+      onGetStarted={() => navigate('/login')}
+      onLogin={() => navigate('/login')}
+      onViewDemo={() => navigate('/demo')}
+    />
+  );
+};
+
+const LoginPageWrapper = () => {
+  const navigate = useNavigate();
+  return <LoginPage onLogin={() => navigate('/dashboard')} />;
+};
