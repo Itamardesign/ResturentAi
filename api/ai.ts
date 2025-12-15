@@ -45,6 +45,9 @@ export default async function handler(req, res) {
             case 'extractMenu':
                 result = await handleExtractMenu(payload);
                 break;
+            case 'transformImage':
+                result = await handleTransformImage(payload);
+                break;
             default:
                 return res.status(400).json({ error: 'Invalid action' });
         }
@@ -164,4 +167,49 @@ async function handleExtractMenu({ base64Images }) {
     const text = response.text;
     if (!text) return [];
     return JSON.parse(text);
+}
+
+async function handleTransformImage({ base64Image, userPrompt }) {
+    // 1. Analyze the original image to describe it
+    const analyzePrompt = "Describe this food dish in detail. Focus on the main ingredients, plating, and colors. Keep it under 50 words.";
+    const analysisResponse = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: {
+            parts: [
+                {
+                    inlineData: {
+                        mimeType: 'image/jpeg',
+                        data: base64Image
+                    }
+                },
+                { text: analyzePrompt }
+            ]
+        }
+    });
+
+    const description = analysisResponse.text.trim();
+
+    // 2. Generate new image using the description + style
+    // If user provided a specific prompt override, use that, otherwise build one.
+    const finalPrompt = userPrompt || `Professional food photography of ${description}. High resolution, gorgeous studio shot, soft lighting, 8k, appetizing, style: nano banana 1`;
+
+    // Note: Using 'imagen-3.0-generate-001' model for generation 
+    const imageResponse = await ai.models.generateImages({
+        model: 'imagen-3.0-generate-001',
+        prompt: finalPrompt,
+        config: {
+            numberOfImages: 1,
+            aspectRatio: "1:1" // Or "4:3" etc.
+        }
+    });
+
+    // Extract the image from response (Assuming Base64 output)
+    // @ts-ignore
+    const generatedImage = imageResponse.images[0].image; // Verify SDK structure, usually 'image' or 'base64'
+
+    return {
+        image: generatedImage,
+        prompt: finalPrompt,
+        originalDescription: description
+    };
 }

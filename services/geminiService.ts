@@ -44,6 +44,8 @@ const executeAiRequest = async (action: string, payload: any): Promise<any> => {
         return await devAnalyzeImage(payload);
       case 'extractMenu':
         return await devExtractMenu(payload);
+      case 'transformImage':
+        return await devTransformImage(payload);
       default:
         throw new Error("Invalid Action");
     }
@@ -210,3 +212,44 @@ export const extractMenuFromImages = async (base64Images: string[]): Promise<Ext
     return [];
   }
 };
+
+export const transformImage = async (base64Image: string, userPrompt?: string): Promise<{ image: string, prompt: string, originalDescription: string }> => {
+  try {
+    const result = await executeAiRequest('transformImage', { base64Image, userPrompt });
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function devTransformImage({ base64Image, userPrompt }: any) {
+  if (!devAi) throw new Error("No AI");
+
+  // 1. Describe
+  const analyzePrompt = "Describe this food dish in detail. Focus on the main ingredients, plating, and colors. Keep it under 50 words.";
+  const analysisResponse = await devAi.models.generateContent({
+    model: 'gemini-2.5-flash',
+    contents: {
+      parts: [{ inlineData: { mimeType: 'image/jpeg', data: base64Image } }, { text: analyzePrompt }]
+    }
+  });
+  const description = analysisResponse.text.trim();
+
+  // 2. Generate
+  const finalPrompt = userPrompt || `Professional food photography of ${description}. High resolution, gorgeous studio shot, soft lighting, 8k, appetizing, style: nano banana 1`;
+
+  try {
+    // @ts-ignore
+    const imageResponse = await devAi.models.generateImages({
+      model: 'imagen-3.0-generate-001',
+      prompt: finalPrompt,
+      config: { numberOfImages: 1, aspectRatio: "1:1" }
+    });
+    // @ts-ignore
+    const generatedImage = imageResponse.images[0].image;
+    return { image: generatedImage, prompt: finalPrompt, originalDescription: description };
+  } catch (e) {
+    console.error("Local Image Gen Failed", e);
+    throw new Error("Local image generation failed. Try deploying to Vercel or check API permissions.");
+  }
+}
