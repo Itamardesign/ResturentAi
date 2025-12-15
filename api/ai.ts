@@ -203,9 +203,17 @@ async function handleTransformImage({ base64Image, userPrompt }) {
         }
     });
 
-    // Extract the image from response (Assuming Base64 output)
+    console.log("Raw Image Response:", JSON.stringify(imageResponse, null, 2));
+
+    const generatedImages = imageResponse.generatedImages;
+    if (!generatedImages || generatedImages.length === 0) {
+        throw new Error("No images returned from API");
+    }
+
+    // Extract the image from response (Base64 is in 'image.base64' or similar structure, checking logs)
+    // Based on logs: "generatedImages": [ { "image": { "base64": "..." } } ]
     // @ts-ignore
-    const generatedImage = imageResponse.images[0].image; // Verify SDK structure, usually 'image' or 'base64'
+    const generatedImage = generatedImages[0].image.base64;
 
     return {
         image: generatedImage,

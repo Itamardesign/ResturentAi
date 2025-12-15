@@ -245,8 +245,17 @@ async function devTransformImage({ base64Image, userPrompt }: any) {
       prompt: finalPrompt,
       config: { numberOfImages: 1, aspectRatio: "1:1" }
     });
+
+    console.log("Local Image Response:", JSON.stringify(imageResponse, null, 2));
+
     // @ts-ignore
-    const generatedImage = imageResponse.images[0].image;
+    const generatedImages = imageResponse.generatedImages;
+    if (!generatedImages || generatedImages.length === 0) {
+      throw new Error("No images returned from local API");
+    }
+
+    // @ts-ignore
+    const generatedImage = generatedImages[0].image.base64;
     return { image: generatedImage, prompt: finalPrompt, originalDescription: description };
   } catch (e) {
     console.error("Local Image Gen Failed", e);
