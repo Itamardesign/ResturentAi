@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, ViewMode } from '../../types';
+import { User } from 'firebase/auth';
 import { LayoutDashboard, UtensilsCrossed, BarChart3, QrCode, LogOut, ExternalLink, Menu as MenuIcon, Palette, User, ChevronRight, Settings } from 'lucide-react';
 import { MenuEditor } from './MenuEditor';
 import { Analytics } from './Analytics';
@@ -9,12 +10,13 @@ import { Button } from '../Button';
 
 interface DashboardProps {
   menu: Menu;
+  user: User | null;
   onUpdateMenu: (m: Menu) => void;
   onSwitchToDiner: () => void;
   onLogout: () => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ menu, onUpdateMenu, onSwitchToDiner, onLogout }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ menu, user, onUpdateMenu, onSwitchToDiner, onLogout }) => {
   const [activeTab, setActiveTab] = useState<'editor' | 'design' | 'analytics' | 'qrcode' | 'settings'>('editor');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -22,8 +24,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ menu, onUpdateMenu, onSwit
     <button
       onClick={() => { setActiveTab(id); setMobileMenuOpen(false); }}
       className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 group relative overflow-hidden ${activeTab === id
-          ? 'bg-orange-50 text-orange-700 font-semibold shadow-sm ring-1 ring-orange-100'
-          : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
+        ? 'bg-orange-50 text-orange-700 font-semibold shadow-sm ring-1 ring-orange-100'
+        : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
         }`}
     >
       <div className={`relative z-10 transition-colors ${activeTab === id ? 'text-orange-600' : 'text-gray-400 group-hover:text-gray-600'}`}>
@@ -103,11 +105,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ menu, onUpdateMenu, onSwit
 
             {/* User Profile */}
             <div className="flex items-center gap-3 px-2 py-3 mt-2">
-              <div className="w-9 h-9 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
-                <User className="w-5 h-5" />
+              <div className="w-9 h-9 bg-orange-100 rounded-full flex items-center justify-center text-orange-700 font-bold border border-orange-200">
+                {user?.email ? user.email.substring(0, 2).toUpperCase() : <User className="w-5 h-5" />}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">Demo Owner</p>
+                <p className="text-sm font-medium text-gray-900 truncate">{user?.displayName || user?.email || 'Guest Owner'}</p>
                 <button onClick={onLogout} className="text-xs text-red-600 hover:text-red-700 flex items-center gap-1">
                   Sign Out
                 </button>

@@ -91,6 +91,7 @@ const OwnerDashboardRoute = () => {
   return (
     <Dashboard
       menu={menuData}
+      user={user}
       onUpdateMenu={handleUpdateMenu}
       onSwitchToDiner={() => window.open(`/menu/${user.uid}`, '_blank')}
       onLogout={logout}

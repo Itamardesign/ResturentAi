@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '../Button';
 import { ChefHat, Wand2, Globe, TrendingUp, Smartphone, ArrowRight, CheckCircle2, Zap, Camera, Star, Sparkles } from 'lucide-react';
 import { INITIAL_MENU } from '../../constants';
+import { Logo } from '../common/Logo';
 
 interface LandingPageProps {
   onGetStarted: () => void;
@@ -146,8 +147,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin,
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-5'}`}>
         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-orange-500/30">B</div>
-            <span className="font-bold text-gray-900 text-lg tracking-tight">Bistrot AI</span>
+            <Logo />
           </div>
           <div className="flex items-center gap-4">
             {/* Language Switcher */}
@@ -446,8 +446,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted, onLogin,
       <footer className="border-t border-gray-100 py-12 bg-white">
         <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-2 opacity-80">
-            <div className="w-6 h-6 bg-gray-900 rounded-md flex items-center justify-center text-white font-bold text-xs">B</div>
-            <span className="font-bold text-gray-900">Bistrot AI</span>
+            <Logo />
           </div>
           <div className="text-sm text-gray-500">
             © 2025 Bistrot AI. Crafted for restaurants with ❤️
