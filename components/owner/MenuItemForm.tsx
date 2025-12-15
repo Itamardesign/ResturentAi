@@ -69,7 +69,6 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({ initialData, categor
             const fullBase64 = `data:${file.type};base64,${base64}`;
             setImagePreview(fullBase64);
             setFormData(prev => ({ ...prev, image: fullBase64 }));
-            setFormData(prev => ({ ...prev, image: fullBase64 }));
         }
     };
 
