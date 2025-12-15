@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MenuItem, MenuCategory, ImageEnhancement, SpicinessLevel } from '../../types';
 import { Button } from '../Button';
 import { Wand2, Image as ImageIcon, Sparkles, Loader2, X, UploadCloud, ChevronLeft, ArrowLeft, Flame, Leaf, WheatOff, ChefHat, ThumbsUp, TrendingUp, Clock } from 'lucide-react';
-import { translateContent, generateDescription, analyzeImageForEnhancement, fileToGenerativePart, transformImage } from '../../services/geminiService';
+import { translateContent, generateDescription, fileToGenerativePart, transformImage } from '../../services/geminiService';
 import { ImageGenerationModal } from './ImageGenerationModal';
 
 interface MenuItemFormProps {
@@ -25,7 +25,6 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({ initialData, categor
 
     const [imagePreview, setImagePreview] = useState<string | undefined>(initialData?.image);
     const [imageFile, setImageFile] = useState<File | null>(null);
-    const [enhancement, setEnhancement] = useState<ImageEnhancement | undefined>(initialData?.imageEnhancement);
 
     const [loadingAI, setLoadingAI] = useState<string | null>(null); // 'translate' | 'desc' | 'image'
     const [showImageGenModal, setShowImageGenModal] = useState(false);
@@ -70,19 +69,10 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({ initialData, categor
             const fullBase64 = `data:${file.type};base64,${base64}`;
             setImagePreview(fullBase64);
             setFormData(prev => ({ ...prev, image: fullBase64 }));
-            setEnhancement(undefined); // Reset enhancement when new image loaded
+            setFormData(prev => ({ ...prev, image: fullBase64 }));
         }
     };
 
-    const triggerAIEnhanceImage = async () => {
-        if (!formData.image) return;
-        setLoadingAI('image');
-        const base64Content = formData.image.split(',')[1];
-        const result = await analyzeImageForEnhancement(base64Content);
-        setEnhancement(result);
-        setFormData(prev => ({ ...prev, imageEnhancement: result }));
-        setLoadingAI(null);
-    };
 
     const triggerAITranslate = async (field: 'name' | 'description', sourceLang: 'en' | 'th') => {
         const sourceText = formData[field]?.[sourceLang];
@@ -124,12 +114,6 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({ initialData, categor
         onSave(finalData);
     };
 
-    const getFilterStyle = () => {
-        if (!enhancement) return {};
-        return {
-            filter: `brightness(${enhancement.brightness}) contrast(${enhancement.contrast}) saturate(${enhancement.saturation})`
-        };
-    };
 
     const currentDietary = formData.dietaryInfo || { isVegan: false, isVegetarian: false, isGlutenFree: false, spiciness: 'none' };
     const currentTags = formData.tags || [];
@@ -165,7 +149,6 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({ initialData, categor
                                             src={imagePreview}
                                             alt="Preview"
                                             className="w-full h-full object-cover transition-all duration-700"
-                                            style={getFilterStyle()}
                                         />
                                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                             <span className="text-white text-sm font-medium flex items-center gap-2">
@@ -200,21 +183,6 @@ export const MenuItemForm: React.FC<MenuItemFormProps> = ({ initialData, categor
                                     >
                                         AI Studio Shoot (Nano Banana Style)
                                     </Button>
-                                    <Button
-                                        type="button"
-                                        variant="secondary"
-                                        className="w-full justify-center bg-purple-50 text-purple-700 hover:bg-purple-100 border-purple-100 mt-2"
-                                        onClick={triggerAIEnhanceImage}
-                                        loading={loadingAI === 'image'}
-                                        icon={<Sparkles className="w-4 h-4" />}
-                                    >
-                                        AI Enhance Photo
-                                    </Button>
-                                    {enhancement && (
-                                        <div className="mt-2 text-center text-xs text-green-600 bg-green-50 py-1.5 rounded-lg font-medium animate-in fade-in slide-in-from-top-1">
-                                            ✨ Optimized for appetizing appeal
-                                        </div>
-                                    )}
                                 </div>
                             )}
                         </div>
