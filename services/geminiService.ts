@@ -241,7 +241,7 @@ async function devTransformImage({ base64Image, userPrompt }: any) {
   try {
     // @ts-ignore
     const imageResponse = await devAi.models.generateImages({
-      model: 'imagen-3.0-generate-001',
+      model: 'imagen-4.0-generate-001',
       prompt: finalPrompt,
       config: { numberOfImages: 1, aspectRatio: "1:1" }
     });

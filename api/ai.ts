@@ -193,9 +193,9 @@ async function handleTransformImage({ base64Image, userPrompt }) {
     // If user provided a specific prompt override, use that, otherwise build one.
     const finalPrompt = userPrompt || `Professional food photography of ${description}. High resolution, gorgeous studio shot, soft lighting, 8k, appetizing, style: nano banana 1`;
 
-    // Note: Using 'imagen-3.0-generate-001' model for generation 
+    // Note: Using 'imagen-4.0-generate-001' model for generation 
     const imageResponse = await ai.models.generateImages({
-        model: 'imagen-3.0-generate-001',
+        model: 'imagen-4.0-generate-001',
         prompt: finalPrompt,
         config: {
             numberOfImages: 1,
