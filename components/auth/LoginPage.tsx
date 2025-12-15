@@ -25,7 +25,9 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
       } else {
         await signInWithEmail(email, password);
       }
+      onLogin(); // Call callback on success
     } catch (err: any) {
+      console.error(err);
       setError(err.message || 'Failed to authenticate');
     } finally {
       setIsLoading(false);
@@ -37,7 +39,9 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
     setError('');
     try {
       await signInWithGoogle();
+      onLogin(); // Call callback on success
     } catch (err: any) {
+      console.error(err);
       setError(err.message || 'Failed to sign in with Google');
     } finally {
       setIsLoading(false);
@@ -49,7 +53,9 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
     setError('');
     try {
       await signInAsGuest();
+      onLogin(); // Call callback on success
     } catch (err: any) {
+      console.error(err);
       setError(err.message || 'Failed to continue as guest');
     } finally {
       setIsLoading(false);

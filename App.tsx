@@ -171,5 +171,15 @@ const LandingPageWrapper = () => {
 
 const LoginPageWrapper = () => {
   const navigate = useNavigate();
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && user) {
+      navigate('/dashboard');
+    }
+  }, [user, loading, navigate]);
+
+  if (loading) return null; // Or a spinner
+
   return <LoginPage onLogin={() => navigate('/dashboard')} />;
 };
