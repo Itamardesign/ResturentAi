@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Button } from '../Button';
 import { ChefHat, Mail, Lock, User as UserIcon } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import { Logo } from '../common/Logo';
 
 interface LoginPageProps {
   onLogin: () => void;
 }
 
-export const LoginPage: React.FC<LoginPageProps> = () => {
+export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const { signInWithGoogle, signInWithEmail, signUpWithEmail, signInAsGuest } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
@@ -66,8 +67,8 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
         <div className="flex flex-col items-center mb-8">
-          <div className="w-16 h-16 bg-orange-600 rounded-2xl flex items-center justify-center text-white mb-4 shadow-lg shadow-orange-600/20">
-            <ChefHat className="w-10 h-10" />
+          <div className="mb-6 scale-125 transform origin-center">
+            <Logo />
           </div>
           <h1 className="text-2xl font-bold text-gray-900">{isSignUp ? 'Create Account' : 'Welcome Back'}</h1>
           <p className="text-gray-500 mt-1">{isSignUp ? 'Sign up to start building your menu' : 'Sign in to manage your digital menu'}</p>

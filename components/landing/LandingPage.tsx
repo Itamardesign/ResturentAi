@@ -12,56 +12,56 @@ interface LandingPageProps {
 
 const CONTENT = {
   en: {
-    badge: "For Restaurant Owners",
+    badge: "For Busy Restaurant Owners",
     hero: {
-      title1: "The Last Menu",
-      title2: "You'll Ever Print.",
-      subtitle: "Eliminate reprint costs instantly. Upgrade to a multi-language digital menu built by AI to increase your average ticket size by up to 20%.",
-      ctaDemo: "View Live Demo",
+      title1: "Stop Printing.",
+      title2: "Start Selling.",
+      subtitle: "Turn your paper menu into a stunning 5-language digital menu in minutes. Just snap a photo, and our AI does the rest. No tech skills needed.",
+      ctaDemo: "See It In Action",
       ctaLogin: "Log in",
-      ctaGetStarted: "Get Started",
+      ctaGetStarted: "Create My Menu Free",
       noCard: "No credit card required",
       cancel: "Cancel anytime"
     },
     stats: {
       restaurants: "Restaurants",
-      sales: "Sales Increase",
+      sales: "More Orders",
       dishes: "Dishes Digitized",
       rating: "Owner Rating"
     },
     features: {
-      title: "Everything a small restaurant needs to grow.",
-      subtitle: "We built Bistrot AI specifically for owners who love cooking but hate technology. It's simple, fast, and powerful.",
+      title: "Why 500+ Owners Switched",
+      subtitle: "Your paper menu is costing you money. Go digital to save time, attract tourists, and sell more high-margin items.",
       snap: {
-        title: "Snap to Import",
-        desc: "Don't type out your menu. Just take a photo of your existing paper menu, and our AI will extract dishes, prices, and descriptions instantly."
+        title: "Snap & Go",
+        desc: "Hate typing? So do we. Just take a photo of your existing menu. Our AI instantly converts it into a digital format."
       },
       lang: {
         title: "Speak Every Language",
-        desc: "Tourists love your food but can't read your Thai menu. Automatically translate your dishes into English, Chinese, and more with one click."
+        desc: "Don't lose customers because of a language barrier. Instantly translate your menu into English, Chinese, Russian, and more."
       },
       photo: {
-        title: "Studio-Quality Photos",
-        desc: "Upload any photo from your phone. Our AI automatically enhances lighting, color, and sharpness to make your food look professional."
+        title: "Magic Photos",
+        desc: "Bad lighting? No problem. Upload any food photo and our AI will enhance it to look like it was shot in a studio."
       },
       desc: {
-        title: "Irresistible Descriptions",
-        desc: "Not a writer? Our AI generates appetizing, sales-driving descriptions for every dish on your menu automatically."
+        title: "Sells Itself",
+        desc: "Our AI writes mouth-watering descriptions for you. Turn 'Chicken Soup' into 'Slow-simmered comfort bowl' automatically."
       }
     },
     comparison: {
-      title: "From \"What is this?\" to \"I'll have three!\"",
-      desc: "Printed menus get dirty, are expensive to update, and don't help tourists understand your food. Switch to a dynamic web menu that loads instantly and lets you update prices in seconds.",
-      check1: "Update prices instantly (no re-printing)",
-      check2: "Filter by Vegetarian, Vegan, Spicy",
-      check3: "Collect analytics on what customers view"
+      title: "Paper vs. Smart Menu",
+      desc: "Paper menus are static, dirty, and expensive to reprint. A Smart Menu is alive—it upsells customers, speaks their language, and costs nothing to update.",
+      check1: "Change prices in seconds (Zero printing costs)",
+      check2: "Upsell with 'Popular' and 'Chef's Choice' tags",
+      check3: "Understand what your customers actually want"
     },
     cta: {
-      title: "Ready to upgrade your restaurant?",
-      subtitle: "Join 500+ owners who are saving time and selling more.\nIt takes less than 5 minutes to set up.",
-      button: "View Live Demo",
+      title: "Your Menu is Ready to Upgrade",
+      subtitle: "It takes 5 minutes to set up. It saves you hours every week.\nTry it yourself.",
+      button: "See It In Action",
       buttonLogin: "Login",
-      note: "Free plan available"
+      note: "Forever free plan available. No credit card."
     }
   },
   th: {

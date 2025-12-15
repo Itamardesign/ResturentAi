@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Menu, ViewMode } from '../../types';
 import { User } from 'firebase/auth';
-import { LayoutDashboard, UtensilsCrossed, BarChart3, QrCode, LogOut, ExternalLink, Menu as MenuIcon, Palette, User, ChevronRight, Settings } from 'lucide-react';
+import { LayoutDashboard, UtensilsCrossed, BarChart3, QrCode, LogOut, ExternalLink, Menu as MenuIcon, Palette, User as UserIcon, ChevronRight, Settings } from 'lucide-react';
 import { MenuEditor } from './MenuEditor';
 import { Analytics } from './Analytics';
 import { ThemeSelector } from './ThemeSelector';
 import { RestaurantSettings } from './RestaurantSettings';
 import { Button } from '../Button';
+import { Logo } from '../common/Logo';
 
 interface DashboardProps {
   menu: Menu;
@@ -47,8 +48,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ menu, user, onUpdateMenu, 
         {/* Mobile Header */}
         <div className="md:hidden flex items-center justify-between p-4 border-b border-gray-200 bg-white">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center text-white font-bold">B</div>
-            <span className="font-bold text-gray-900 text-lg">Bistrot AI</span>
+            <Logo />
           </div>
           <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
             <MenuIcon className="w-6 h-6" />
@@ -69,11 +69,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ menu, user, onUpdateMenu, 
 
           {/* Brand */}
           <div className="hidden md:flex items-center gap-3 px-6 py-8">
-            <div className="w-9 h-9 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-orange-500/20">B</div>
-            <div>
-              <h1 className="font-bold text-xl text-gray-900 tracking-tight leading-none">Bistrot AI</h1>
-              <p className="text-xs text-gray-400 mt-1 font-medium">Menu Manager</p>
-            </div>
+            <Logo />
           </div>
 
           {/* Navigation */}
@@ -106,7 +102,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ menu, user, onUpdateMenu, 
             {/* User Profile */}
             <div className="flex items-center gap-3 px-2 py-3 mt-2">
               <div className="w-9 h-9 bg-orange-100 rounded-full flex items-center justify-center text-orange-700 font-bold border border-orange-200">
-                {user?.email ? user.email.substring(0, 2).toUpperCase() : <User className="w-5 h-5" />}
+                {user?.email ? user.email.substring(0, 2).toUpperCase() : <UserIcon className="w-5 h-5" />}
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-gray-900 truncate">{user?.displayName || user?.email || 'Guest Owner'}</p>
